@@ -1,0 +1,9 @@
+channels:
+ - conda-forge
+ - bioconda
+ - defaults
+ - anaconda
+dependencies:
+ - hisat2 == 2.2.1
+ - libgl
+ - mesa-libgl-cos6-x86_64
