@@ -1,0 +1,17 @@
+#!/bin/bash -l
+#SBATCH --nodes 1
+#SBATCH --ntasks 8
+#SBATCH --cpus-per-task 1
+#SBATCH --mem=1G
+#SBATCH --time=0
+#SBATCH --mail-user=yourmail@gmail.com
+#SBATCH --error=snakemake.err
+
+source ~/.bash_profile
+conda activate snakemake
+module load singularity
+
+snakemake --cores 8 --use-conda --conda-frontend conda --use-singularity --singularity-args '-B /home/MEGddols' --unlock --scheduler greedy
+snakemake --cores 8 --use-conda --conda-frontend conda --use-singularity --singularity-args '-B /home/MEGddols' --rerun-incomplete --printshellcmds --scheduler greedy
+
+## change your profile !
