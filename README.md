@@ -7,7 +7,7 @@ This tutorial is meant to showcase one of the multiple ways a genome may be stru
 
 In an ideal world, the transcriptome should belong to the same species the genome we are trying to annotate belongs to. However, in times of need a sufficiently close species' transcriptome should do the trick. And in more desperate times, well, any transcriptome more or less related to our taxon is acceptable. Anyway, this workflow is an adaptation of [this](https://github.com/sdind/genome_annotation_workflow?tab=readme-ov-file) workflow by **sdind**. 
 
-Lastly, this workflow is written with `Linux` in mind as the running OS. Needless to say, **all commands** will be executed through the terminal.
+Lastly, this workflow is written with `Linux` in mind as the running OS with access to a cluster with a [Slurm](https://slurm.schedmd.com/quickstart.html) system. If you are working on a [SGE](http://star.mit.edu/cluster/docs/0.93.3/guides/sge.html) cluster or any other kind, you can still run the scripts in this repository, although you will have to modify them accordingly for your queueing system. Needless to say, **all commands** will be executed through the terminal.
 
 # Prerequisites
 
