@@ -9,14 +9,6 @@ Structural genome annotation workflow
 - [Step 3 - Prepare your input data](#step-3---prepare-your-input-data)
 - [Step 4 - Configure the workflow](#step-4---configure-the-workflow)
 
-<style type="text/css">
-.figure .caption {
-  font-size: 9pt;      /* You can change this value */
-  font-style: italic;   /* You can still keep it italic */
-  color: #555555;      /* Optional: Change the color to a dark grey */
-}
-</style>
-
 This is a step-by-step guide explaining some of the steps in /sdind’s
 genome_annotation_workflow. All credit goes to they work and be sure to
 visit their repository for an in-depth dive into the workflow. This
@@ -306,3 +298,4 @@ Once all of this has been taken care of, we can move to the
 and submit the job with `sbatch snakemake_annotation.run`. The workflow
 is now running and should take a few days to fully complete without
 errors. All result files will be at `/workflow_ann/results`.
+
