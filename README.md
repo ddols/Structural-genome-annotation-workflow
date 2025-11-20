@@ -1,3 +1,5 @@
+[![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-blue?logo=github)](https://ddols.github.io/Structural-genome-annotation-workflow/)
+
 Structural genome annotation workflow
 ================
 
@@ -298,5 +300,6 @@ Once all of this has been taken care of, we can move to the
 and submit the job with `sbatch snakemake_annotation.run`. The workflow
 is now running and should take a few days to fully complete without
 errors. All result files will be in `/workflow_ann/results`.
+
 
 
