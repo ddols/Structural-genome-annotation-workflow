@@ -40,7 +40,7 @@ I have prepared a `yaml` that contains all the required programs and dependencie
 conda env create -f snakemake.yaml
 ```
 
-Once the environment is create, type `conda activate snakemake` and your prompt in the terminal should look like this:
+Once the environment is created, type `conda activate snakemake` and your prompt in the terminal should look like this:
 
 ```{r prompt_env, eval=FALSE}
 (snakemake) [your_username@host_name your_current_location]$
