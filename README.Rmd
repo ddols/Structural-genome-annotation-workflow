@@ -1,13 +1,10 @@
 ---
 title: 'Structural genome annotation workflow'
 output:
-  html_document:
+  github_document:
     toc: true
-    toc_float: true
-    theme: united
-    highlight: tango
-  pdf_document:
-    toc: true
+    toc_depth: 2
+always_allow_html: true
 ---
 
 <style type="text/css">
@@ -204,3 +201,4 @@ rule all:
 ```
 
 Once all of this has been taken care of, we can move to the `/workflow_ann` directory where the `snakemake_annotation.run` file is and submit the job with `sbatch snakemake_annotation.run`. The workflow is now running and should take a few days to fully complete without errors. All result files will be at `/workflow_ann/results`. 
+
