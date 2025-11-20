@@ -56,13 +56,13 @@ git clone https://github.com/sdind/genome_annotation_workflow
 
 You will see that a `/genome_annotation_workflow` folder is created in your current location. To know more about the directory structure within it, please check the [original repository](https://github.com/sdind/genome_annotation_workflow). If you browse around the inner folders, you will find a `snakemake_annotation.run` file in `/workflow_ann`, which is a `bash` file that sets up the analysis and the file that we will submit to the queue when working on a cluster. 
 
-This workflow does pretty much everything through a series of rules implemented in Snakemake and should work without problems from here. However, I have encountered some incompatibilities that have messed up my analysis, specifically with `multiqc.yaml` in the `workflow_ann/workflow/envs` directory and some versions of certain dependencies included in other `*.yaml`. So, to ensure that everything runs smoothly, you should copy the `/envs` and `/rules` folders from this page and substitute the native one's in your `/workflow` directory. Essentially, I have disabled the `FASTQC` and `multiQC` steps which recursively crashed my runs. However, it might not be the case for you. 
+This workflow does pretty much everything through a series of rules implemented in Snakemake and should work without problems from here. However, I have encountered some incompatibilities that have messed up my analysis, specifically with `multiqc.yaml` in the `workflow_ann/workflow/envs` directory and some versions of certain dependencies included in other `*.yaml`. So, to ensure that everything runs smoothly, you should copy the `/envs` and `/rules` folders from this page and substitute the native one's in your `/workflow` directory. Essentially, I have disabled the `FASTQC` and `multiQC` steps, which recursively crashed my runs. However, it might not be the case for you. 
 
 # Step 3 - Prepare your input data
 
 This workflow performs the structural annotation by integrating RNA-seq and protein data. To run it, you will need the following:
 
-* **Your** genome in `fasta` format
+* **Your** genome assembly in `fasta` format
 * RNAseq data in `fastq` format
 * A protein database in `fasta` format
 
