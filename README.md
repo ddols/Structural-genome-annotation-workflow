@@ -11,8 +11,8 @@ Structural genome annotation workflow
 - [Step 3 - Prepare your input data](#step-3---prepare-your-input-data)
 - [Step 4 - Configure the workflow](#step-4---configure-the-workflow)
 
-This is a step-by-step guide explaining some of the steps in /sdind’s
-genome_annotation_workflow. All credit goes to their work. Be sure to
+This is a step-by-step guide explaining some of the steps in [/sdind’s
+genome_annotation_workflow](https://github.com/sdind/genome_annotation_workflow?tab=readme-ov-file). All credit goes to their work. Be sure to
 visit their repository for an in-depth dive into the workflow. This
 guide is meant for people who are new to structural genome annotation.
 
@@ -300,6 +300,7 @@ Once all of this has been taken care of, we can move to the
 and submit the job with `sbatch snakemake_annotation.run`. The workflow
 is now running and should take a few days to fully complete without
 errors. All result files will be in `/workflow_ann/results`.
+
 
 
 
