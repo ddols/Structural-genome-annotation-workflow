@@ -10,7 +10,7 @@ Structural genome annotation workflow
 - [Step 4 - Configure the workflow](#step-4---configure-the-workflow)
 
 This is a step-by-step guide explaining some of the steps in /sdind’s
-genome_annotation_workflow. All credit goes to they work and be sure to
+genome_annotation_workflow. All credit goes to their work. Be sure to
 visit their repository for an in-depth dive into the workflow. This
 guide is meant for people who are new to structural genome annotation.
 
@@ -18,15 +18,15 @@ guide is meant for people who are new to structural genome annotation.
 
 This tutorial is meant to showcase one of the multiple ways a genome may
 be structurally annotated. That is, basically, to physically locate
-every possible genomic feature such exons, introns, genes and regulatory
-sequences (whenever it is possible). To do so it is fundamental to not
-only have a genome to annotate (duh) but most importantly transcriptomic
-data which will be essential to characterize the previously mentioned
+every possible genomic feature such as exons, introns, genes and regulatory
+sequences (whenever it is possible). To do so, it is fundamental to not
+only have a genome to annotate (duh) but, most importantly, transcriptomic
+data, which will be essential to characterise the previously mentioned
 features.
 
 In an ideal world, the transcriptome should belong to the same species
-the genome we are trying to annotate belongs to. However, in times of
-need a sufficiently close species’ transcriptome should do the trick.
+whose genome we are trying to annotate. However, in times of
+need, a sufficiently close species’ transcriptome should do the trick.
 And in more desperate times, well, any transcriptome more or less
 related to our taxon is acceptable. Anyway, this workflow is an
 adaptation of
@@ -47,7 +47,7 @@ terminal.
 
 To run this worklow you will surely need to install `conda` or `mamba`,
 a tool for package and environment management. When visiting [conda’s
-webpage](https://docs.conda.io/projects/conda/en/stable/user-guide/install/index.html)
+webpage](https://docs.conda.io/projects/conda/en/stable/user-guide/install/index.html),
 you will see that there are different installers available. Anyone will
 do. When running this workflow, I have been working with `miniconda`.
 You will find the instructions for installing it
@@ -68,13 +68,13 @@ Or this:
 ```
 
 The `(base)` part indicates that `conda` is active and running its
-default environment. If for whatever reason it does not appear in your
+default environment. If, for whatever reason, it does not appear in your
 prompt, typing `source ~/.bashrc` or `source ~/.bash_profile` will do. A
 quick `ls -la ~` should tell you which type of `.bash` file you have.
 
 # Step 1 - Setting the proper environment
 
-Okay! Now that you have successfully installed `conda` in your computer,
+Okay! Now that you have successfully installed `conda` on your computer,
 we will focus on creating an environment that will ensure that the
 workflow runs properly. Based on the [original
 workflow](https://github.com/sdind/genome_annotation_workflow?tab=readme-ov-file),
@@ -124,7 +124,7 @@ my analysis, specifically with `multiqc.yaml` in the
 `workflow_ann/workflow/envs` directory and some versions of certain
 dependencies included in other `*.yaml`. So, to ensure that everything
 runs smoothly, you should copy the `/envs` and `/rules` folders from
-this page and substitute the native one’s in your `/workflow` directory.
+this page and substitute the native ones in your `/workflow` directory.
 Essentially, I have disabled the `FASTQC` and `multiQC` steps, which
 recursively crashed my runs. However, it might not be the case for you.
 
@@ -138,11 +138,11 @@ and protein data. To run it, you will need the following:
 - A protein database in `fasta` format
 
 To create a protein database you could download any of the publicly
-available at
+available in
 [OrthoDB](https://bioinf.uni-greifswald.de/bioinf/partitioned_odb11/)
-that is closest to your taxon’s genome or use a concatenated fasta of
+that is closest to your taxon’s genome, or use a concatenated fasta of
 proteomes from closely related species. Or best, combine both. However,
-always make of two things:
+to avoid unsolicited problems, always check these two things:
 
 1.  Always make sure that the protein database is **uncompressed**,
     otherwise it will crash `BRAKER`. If you download any of OrthoDB’s
@@ -151,8 +151,8 @@ always make of two things:
     to obtain it. You can obtain the link by right-clicking on the
     hyperlink on the database in [OrthoDB’s
     webpage](https://bioinf.uni-greifswald.de/bioinf/partitioned_odb11/).
-    Then, check that it has downloaded correctly comparing the `md5sum`
-    number of your download with the one provided by the webpage, and
+    Then, check that it has downloaded correctly by comparing the `md5sum`
+    numbers of your download with the one provided by the webpage, and
     unpack it with `tar -xvfz Metazoa.fa.gz`. Afterwards, you can add
     other proteomes to the metazoan backbone using a simple
     `cat`command.
@@ -168,9 +168,9 @@ sed '/^>/s/ .*//' input.fasta > output.fasta
 # Step 4 - Configure the workflow
 
 We are almost done. Now we need to edit a couple of files to indicate
-where the input data is laying around within our `/workflow_ann`
+where the input data is within our `/workflow_ann`
 directory. If you have followed this guide, then there are only 2 files
-that we have to concern about.
+that we have to be concerned about.
 
 1.  The `config.yaml` file in `/workflow_ann/config` directory.
 2.  The `Snakefile` file in the `/Workflow_ann/worflow` directory.
@@ -238,7 +238,7 @@ resources:
 It is best not to meddle with the `resources` block. However, the
 `#parameters` block is the one we are truly interested in. In this block
 we will have to indicate the paths to several input files to run the
-workflow. The paths can be relative or absolute, I prefer the second
+workflow. The paths can be relative or absolute. I prefer the second
 approach. The parameters are the following:
 
 - `asm` - Path to the genome we want to annotate.
@@ -249,15 +249,15 @@ approach. The parameters are the following:
 - `busco_phylum` - Database against which we want to conduct a BUSCO
   search to assess the completeness of our genome assembly.
 - `prot` - Path to the proteins database file.
-- `samples` - Path to the RNA-seq files. In here we need to specify a
+- `samples` - Path to the RNA-seq files. In here, we need to specify a
   name under which a series of datasets will be associated. Why? Because
   maybe we are using transcriptomes from different tissues to annotate
-  our genome and it can be easier to track those files (i.e. transcript
+  our genome, and it can be easier to track those files (i.e. transcript
   maps against the genome) downstream under specific names. We will have
   to indicate the `type` (often `paired-end`) and the paths to the
-  `*_1.fastq` & `*_2.fastq` files. In the example above we are only
+  `*_1.fastq` & `*_2.fastq` files. In the example above, we are only
   using whole-body transcripts, but if we wanted to add data from
-  specific body parts that we had sequenced of retrieved we could say so
+  specific body parts that we had sequenced or downloaded we could say so
   as follows:
 
 ``` r
@@ -294,8 +294,9 @@ rule all:
 ```
 
 Once all of this has been taken care of, we can move to the
-`/workflow_ann` directory where the `snakemake_annotation.run` file is
+`/workflow_ann` directory where the `snakemake_annotation.run` file is,
 and submit the job with `sbatch snakemake_annotation.run`. The workflow
 is now running and should take a few days to fully complete without
-errors. All result files will be at `/workflow_ann/results`.
+errors. All result files will be in `/workflow_ann/results`.
+
 
