@@ -310,9 +310,9 @@ analyses we feel like. If you browse the `workflow_ann/results/2_braker/out_brak
 directory, you will find a compendium of `BRAKER`'s outputs (you can learn more about them 
 in [here](https://github.com/Gaius-Augustus/BRAKER), at the section **Output of BRAKER**).
 
-Essentially, both `braker.gtf` and `braker.gff3` are the final gene set of our genome assembly, 
+Essentially, both `braker.gtf` and `braker.gff3` are the final gene set of our genome assembly. 
 `braker.aa` is a multifasta containing all protein sequences (hence, amino-acid sequences) characterised thanks to
-our RNA-seq data, and `braker.condingseq`, which is a multifasta containing the nucleotide sequences of 
+our RNA-seq data, and `braker.condingseq` is a multifasta containing the nucleotide sequences of 
 the genome's gene set. These files contain all possible isoforms identified during the annotation.
 However, in some cases, we are only interested in working with the longest ones to perform [macrosynteny](https://github.com/jtlovell/GENESPACE)
 analysis, determine sets of [orthologous genes](https://github.com/OrthoFinder/OrthoFinder), or [phylogenomics](https://github.com/smirarab/ASTRAL)
@@ -383,6 +383,7 @@ sbacth 2-get_fasta_of_long_isoforms.sh /path-to-your/fasta.masked your_longest.g
 ```
 
 And, voilà! Two files will have appeared, named `longest_isoforms.aa` and `longest_isoforms.codingseq`. Happy analysing!
+
 
 
 
