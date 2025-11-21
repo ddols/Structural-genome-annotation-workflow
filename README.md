@@ -326,16 +326,57 @@ To extract the longest isoforms, we will need at least the following programs:
 
 ### Step 5.1 - Installing the required programs
 
-We will start off by creating a new environment for these programs. To create it, just type:
+We will start off by creating a new environment for these programs. You can name it however you like.
+For this guide's sake we will just name it **tsebra**. To create it, just type:
 
 ```r
 conda create -n tsebra
 ```
+Followed by:
+
+```r
+conda activate tsebra
+```
 
 Then, we will [install TSEBRA](https://bioconda.github.io/recipes/tsebra/README.html) following the instructions, 
 and do the same for [Augustus](https://anaconda.org/bioconda/augustus) (you can also try following [this](https://github.com/Gaius-Augustus/Augustus?tab=readme-ov-file#building-augustus-from-source) indications), 
-and `biopython` (`pip3 install biopython`).
+and `biopython` (`pip3 install biopython`). You may have noticed that to install `tsebra` bioconda recommends using `mamba`.
+In case you do not know where `mamba` is, fear not, you will find it within the `/bin` directory of your `conda` installer
+folder. For example, if you chose `miniconda3` as your installer, to install `tsebra` you should type:
 
+```r
+~/path-to/miniconda3/bin/mamba install tsebra
+```
+
+### Step 5.2 - Running the scripts
+
+Everything is ready now to extract the longest isoforms from `BRAKER`'s outputs. Within this guide's directory `/longest_isoforms_scripts`,
+you will find two scripts numbered according to their intended order of usage. Remember that you will need to modify them
+a bit depending on whether you are working locally, on a SGE cluster, or a Slurm one.
+
+The first one `1-get_longest_isoforms.sh` will call a script from `TSEBRA` that will parse the longest isoforms
+to a new gtf file ended with `*_longest.gtf`. To run it, you will only need to place the script in `/results/2_braker/out_braker/braker` folder, be
+on **tsebra**'s `conda` environment, and indicate the base name of the `braker.gtf` file. Which is precisely `braker`. Of course, you can change that name beforehand with `mv` just like this:
+
+```r
+mv braker.gtf biomphalaria.gtf
+```
+
+Now the base name is **biomphalaria**. The script should be sent to queue as follows:
+
+```r
+sbatch 1-get_longest_isoforms.sh biomphalaria
+```
+A new file named `biomphalaria_longest.gtf` will have appeared in your directory. Then, we will run `2-get_fastas_of_long_isoforms.sh` in the same directory.
+This script uses a script from `Augustus` that will use our masked genome assembly and the newly obtained `*_longest.gtf` file
+to extract both the protein set and nucleotide set of the longest isoforms in `fasta` format. You will find the masked assembly in
+`/results/1_MaskRepeat/RepeatMasker`, perfectly labelled. Now, to run it type:
+
+```r
+sbacth 2-get_fasta_of_long_isoforms.sh /path-to-your/fasta.masked your_longest.gtf
+```
+
+And, voilà! Two files will have appeared named `longest_isoforms.aa` and `longest_isoforms.codingseq`. Happy analyzing!
 
 
 
