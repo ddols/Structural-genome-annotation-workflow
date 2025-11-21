@@ -10,6 +10,7 @@ Structural genome annotation workflow
 - [Step 2 - Get the programs](#step-2---get-the-programs)
 - [Step 3 - Prepare your input data](#step-3---prepare-your-input-data)
 - [Step 4 - Configure the workflow](#step-4---configure-the-workflow)
+- [Step 5 - Obtaining longest isoforms for downstream analyses](#step-5---obtaining-longest-isoforms-for-downstream-analyses)
 
 This is a step-by-step guide explaining some of the steps in [/sdind’s
 genome_annotation_workflow](https://github.com/sdind/genome_annotation_workflow?tab=readme-ov-file). All credit goes to their work. Be sure to
@@ -277,7 +278,7 @@ samples:
 ```
 
 As per the `Snakefile`, we will have to make sure that all paths to the
-`config.yaml` and different rules (i.e. files ended with `.smk`) are
+`config.yaml` and different rules (i.e., files ended with `.smk`) are
 correctly indicated. The file looks like this:
 
 ``` r
@@ -300,6 +301,9 @@ Once all of this has been taken care of, we can move to the
 and submit the job with `sbatch snakemake_annotation.run`. The workflow
 is now running and should take a few days to fully complete without
 errors. All result files will be in `/workflow_ann/results`.
+
+# Step 5 - Obtaining longest isoforms for downstream analyses
+
 
 
 
