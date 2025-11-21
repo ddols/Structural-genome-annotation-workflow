@@ -47,7 +47,7 @@ terminal.
 
 # Prerequisites
 
-To run this worklow you will surely need to install `conda` or `mamba`,
+To run this workflow, you will surely need to install `conda` or `mamba`,
 a tool for package and environment management. When visiting [conda’s
 webpage](https://docs.conda.io/projects/conda/en/stable/user-guide/install/index.html),
 you will see that there are different installers available. Anyone will
@@ -56,7 +56,7 @@ You will find the instructions for installing it
 [here](https://www.anaconda.com/docs/getting-started/miniconda/install#quickstart-install-instructions).
 
 Once `conda` is installed (make sure to follow the proper instructions
-for your OS) and activated your prompt in the terminal should look like
+for your OS) and activated, your prompt in the terminal should look like
 this:
 
 ``` r
@@ -77,7 +77,7 @@ quick `ls -la ~` should tell you which type of `.bash` file you have.
 # Step 1 - Setting the proper environment
 
 Okay! Now that you have successfully installed `conda` on your computer,
-we will focus on creating an environment that will ensure that the
+let's focus on creating an environment that will ensure that the
 workflow runs properly. Based on the [original
 workflow](https://github.com/sdind/genome_annotation_workflow?tab=readme-ov-file),
 the following programs are required to run the workflow:
@@ -139,8 +139,8 @@ and protein data. To run it, you will need the following:
 - RNAseq data in `fastq` format
 - A protein database in `fasta` format
 
-To create a protein database you could download any of the publicly
-available in
+To create a protein database, you could download any of the publicly
+available at
 [OrthoDB](https://bioinf.uni-greifswald.de/bioinf/partitioned_odb11/)
 that is closest to your taxon’s genome, or use a concatenated fasta of
 proteomes from closely related species. Or best, combine both. However,
@@ -175,7 +175,7 @@ directory. If you have followed this guide, then there are only 2 files
 that we have to be concerned about.
 
 1.  The `config.yaml` file in `/workflow_ann/config` directory.
-2.  The `Snakefile` file in the `/Workflow_ann/worflow` directory.
+2.  The `Snakefile` file in the `/workflow_ann/workflow` directory.
 
 `config.yaml` contains two blocks of text. And it looks as follows:
 
@@ -203,8 +203,8 @@ samples:
 
 # Simplified resources specification using presets. Threads are always used
 # by Snakemake whenever possible, but 'mem_mb' and 'runtime' are only used
-# when executing Snakemake on a cluster (i.e. using an execution profile) or
-# a cloud environment (e.g. kubernetes..)
+# when executing Snakemake on a cluster (i.e., using an execution profile) or
+# a cloud environment (e.g., kubernetes..)
 presets:
     threads:                  ###### Number of threads
         small: 1              #
@@ -238,7 +238,7 @@ resources:
 ```
 
 It is best not to meddle with the `resources` block. However, the
-`#parameters` block is the one we are truly interested in. In this block
+`#parameters` block is the one we are truly interested in. In this block,
 we will have to indicate the paths to several input files to run the
 workflow. The paths can be relative or absolute. I prefer the second
 approach. The parameters are the following:
@@ -254,12 +254,12 @@ approach. The parameters are the following:
 - `samples` - Path to the RNA-seq files. In here, we need to specify a
   name under which a series of datasets will be associated. Why? Because
   maybe we are using transcriptomes from different tissues to annotate
-  our genome, and it can be easier to track those files (i.e. transcript
+  our genome, and it can be easier to track those files (i.e., transcript
   maps against the genome) downstream under specific names. We will have
   to indicate the `type` (often `paired-end`) and the paths to the
   `*_1.fastq` & `*_2.fastq` files. In the example above, we are only
   using whole-body transcripts, but if we wanted to add data from
-  specific body parts that we had sequenced or downloaded we could say so
+  specific body parts that we had sequenced or downloaded, we could say so
   as follows:
 
 ``` r
@@ -300,6 +300,7 @@ Once all of this has been taken care of, we can move to the
 and submit the job with `sbatch snakemake_annotation.run`. The workflow
 is now running and should take a few days to fully complete without
 errors. All result files will be in `/workflow_ann/results`.
+
 
 
 
