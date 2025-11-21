@@ -379,10 +379,11 @@ to extract both the protein set and nucleotide set of the longest isoforms in `f
 `/results/1_MaskRepeat/RepeatMasker`, perfectly labelled. Now, to run it type:
 
 ```r
-sbacth 2-get_fasta_of_long_isoforms.sh /path-to-your/fasta.masked your_longest.gtf
+sbatch 2-get_fasta_of_long_isoforms.sh /path-to-your/fasta.masked your_longest.gtf
 ```
 
 And, voilà! Two files will have appeared, named `longest_isoforms.aa` and `longest_isoforms.codingseq`. Happy analysing!
+
 
 
 
