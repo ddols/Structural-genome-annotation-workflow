@@ -1567,10 +1567,10 @@ color: #555555;
 }
 </style>
 <p>This is a step-by-step guide explaining some of the steps in /sdind’s
-genome_annotation_workflow. All credit goes to they work and be sure to
-visit their repository for an in-depth dive into the workflow. This
-guide is meant for people who are new to structural genome
-annotation.</p>
+[genome_annotation_workflow]((<a href="https://github.com/sdind/genome_annotation_workflow?tab=readme-ov-file" class="uri">https://github.com/sdind/genome_annotation_workflow?tab=readme-ov-file</a>).
+All credit goes to they work and be sure to visit their repository for
+an in-depth dive into the workflow. This guide is meant for people who
+are new to structural genome annotation.</p>
 <div id="before-we-get-started" class="section level1">
 <h1>Before we get started</h1>
 <p>This tutorial is meant to showcase one of the multiple ways a genome
@@ -1710,7 +1710,7 @@ then there are only 2 files that we have to concern about.</p>
 <li>The <code>config.yaml</code> file in
 <code>/workflow_ann/config</code> directory.</li>
 <li>The <code>Snakefile</code> file in the
-<code>/workflow_ann/workflow</code> directory.</li>
+<code>/Workflow_ann/worflow</code> directory.</li>
 </ol>
 <p><code>config.yaml</code> contains two blocks of text. And it looks as
 follows:</p>
@@ -1831,6 +1831,98 @@ like this:</p>
 running and should take a few days to fully complete without errors. All
 result files will be at <code>/workflow_ann/results</code>.</p>
 </div>
+<div id="step-5---obtaining-longest-isoforms-for-downstream-analyses" class="section level1">
+<h1>Step 5 - Obtaining longest isoforms for downstream analyses</h1>
+<p>Eventually, the workflow will happily end (fingers crossed), and then
+we will be able to move on with either the functional annotation of the
+genome or focus on whatever downstream analyses we feel like. If you
+browse the <code>workflow_ann/results/2_braker/out_braker/braker</code>
+directory, you will find a compendium of <code>BRAKER</code>’s outputs
+(you can learn more about them in <a href="https://github.com/Gaius-Augustus/BRAKER">here</a>, at the section
+<strong>Output of BRAKER</strong>).</p>
+<p>Essentially, both <code>braker.gtf</code> and
+<code>braker.gff3</code> are the final gene set of our genome assembly,
+<code>braker.aa</code> is a multifasta containing all protein sequences
+(hence, amino-acid sequences) characterised thanks to our RNA-seq data,
+and <code>braker.condingseq</code>, which is a multifasta containing the
+nucleotide sequences of the genome’s gene set. These files contain all
+possible isoforms identified during the annotation. However, in some
+cases, we are only interested in working with the longest ones to
+perform <a href="https://github.com/jtlovell/GENESPACE">macrosynteny</a>
+analysis, determine sets of <a href="https://github.com/OrthoFinder/OrthoFinder">orthologous genes</a>,
+or <a href="https://github.com/smirarab/ASTRAL">phylogenomics</a> to
+name a few examples.</p>
+<p>To extract the longest isoforms, we will need at least the following
+programs:</p>
+<ul>
+<li><a href="https://github.com/Gaius-Augustus/TSEBRA">TSEBRA</a></li>
+<li><a href="https://github.com/Gaius-Augustus/Augustus">Augustus</a></li>
+<li><code>biopython</code></li>
+</ul>
+<div id="step-5.1---installing-the-required-programs" class="section level3">
+<h3>Step 5.1 - Installing the required programs</h3>
+<p>We will start off by creating a new environment for these programs.
+You can name it however you like. For this guide’s sake, we will just
+name it <strong>tsebra</strong>. To create it, just type:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>conda create <span class="sc">-</span>n tsebra</span></code></pre></div>
+<p>Followed by:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>conda activate tsebra</span></code></pre></div>
+<p>Then, we will <a href="https://bioconda.github.io/recipes/tsebra/README.html">install
+TSEBRA</a> following the instructions, and do the same for <a href="https://anaconda.org/bioconda/augustus">Augustus</a> (you can also
+try following <a href="https://github.com/Gaius-Augustus/Augustus?tab=readme-ov-file#building-augustus-from-source">this</a>
+indications), and <code>biopython</code>
+(<code>pip3 install biopython</code>). You may have noticed that to
+install <code>tsebra</code>, bioconda recommends using
+<code>mamba</code>. In case you do not know where <code>mamba</code> is,
+fear not, you will find it within the <code>/bin</code> directory of
+your <code>conda</code> installer folder. For example, if you chose
+<code>miniconda3</code> as your installer, to install
+<code>tsebra</code> you should type:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="sc">~</span><span class="er">/</span>path<span class="sc">-</span>to<span class="sc">/</span>miniconda3<span class="sc">/</span>bin<span class="sc">/</span>mamba install tsebra</span></code></pre></div>
+</div>
+<div id="step-5.2---running-the-scripts" class="section level3">
+<h3>Step 5.2 - Running the scripts</h3>
+<p>Everything is ready now to extract the longest isoforms from
+<code>BRAKER</code>’s outputs. Within this guide’s directory
+<code>/longest_isoforms_scripts</code>, you will find two scripts
+numbered according to their intended order of usage. Remember that you
+will need to modify them a bit depending on whether you are working
+locally, on a SGE cluster, or a Slurm one. You will see that in these
+scripts there is a special kind of variable, namely <code>$1</code> and
+<code>$2</code>. In case this is your first time seeing something like
+this, these variables represent the <strong>first</strong> and
+<strong>second</strong> arguments passed to a script or command in the
+command line. E.g.:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>sbatch script.sh <span class="sc">$</span><span class="dv">1</span> <span class="sc">$</span><span class="dv">2</span></span></code></pre></div>
+<p>Okay. Moving onto the first script
+<code>1-get_longest_isoforms.sh</code>, this one will call a script from
+<code>TSEBRA</code> that will parse the longest isoforms to a new gtf
+file ended with <code>*_longest.gtf</code>. To run it, you will only
+need to place the script in
+<code>/results/2_braker/out_braker/braker</code> folder, be on
+<strong>tsebra</strong>’s <code>conda</code> environment, and indicate
+the base name of the <code>braker.gtf</code> file. Which is precisely
+<code>braker</code>. Of course, you can change that name beforehand with
+<code>mv</code> just like this:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>mv braker.gtf biomphalaria.gtf</span></code></pre></div>
+<p>Now the base name is <strong>biomphalaria</strong>. The script should
+be sent to queue as follows:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>sbatch <span class="dv">1</span><span class="sc">-</span>get_longest_isoforms.sh biomphalaria</span></code></pre></div>
+<p>A new file named <code>biomphalaria_longest.gtf</code> will have
+appeared in your directory. Then, we will run
+<code>2-get_fastas_of_long_isoforms.sh</code> in the same directory.
+This script uses a script from <code>Augustus</code> that will use our
+masked genome assembly and the newly obtained <code>*_longest.gtf</code>
+file to extract both the protein set and nucleotide set of the longest
+isoforms in <code>fasta</code> format. You will find the masked assembly
+in <code>/results/1_MaskRepeat/RepeatMasker</code>, perfectly labelled.
+Now, to run it type:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>sbacth <span class="dv">2</span><span class="sc">-</span>get_fasta_of_long_isoforms.sh <span class="sc">/</span>path<span class="sc">-</span>to<span class="sc">-</span>your<span class="sc">/</span>fasta.masked your_longest.gtf</span></code></pre></div>
+<p>And, voilà! Two files will have appeared, named
+<code>longest_isoforms.aa</code> and
+<code>longest_isoforms.codingseq</code>. Happy analysing!</p>
+</div>
+</div>
 
 
 
@@ -1910,4 +2002,3 @@ $(document).ready(function ()  {
 
 </body>
 </html>
-
