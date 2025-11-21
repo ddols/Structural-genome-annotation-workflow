@@ -96,7 +96,7 @@ sed '/^>/s/ .*//' input.fasta > output.fasta
 We are almost done. Now we need to edit a couple of files to indicate where the input data is laying around within our `/workflow_ann` directory. If you have followed this guide, then there are only 2 files that we have to concern about. 
 
 1.  The `config.yaml` file in `/workflow_ann/config` directory.
-2.  The `Snakefile` file in the `/Workflow_ann/worflow` directory.
+2.  The `Snakefile` file in the `/workflow_ann/workflow` directory.
 
 `config.yaml` contains two blocks of text. And it looks as follows: 
 
@@ -201,3 +201,4 @@ rule all:
 ```
 
 Once all of this has been taken care of, we can move to the `/workflow_ann` directory where the `snakemake_annotation.run` file is and submit the job with `sbatch snakemake_annotation.run`. The workflow is now running and should take a few days to fully complete without errors. All result files will be at `/workflow_ann/results`. 
+
