@@ -1917,7 +1917,7 @@ file to extract both the protein set and nucleotide set of the longest
 isoforms in <code>fasta</code> format. You will find the masked assembly
 in <code>/results/1_MaskRepeat/RepeatMasker</code>, perfectly labelled.
 Now, to run it type:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>sbacth <span class="dv">2</span><span class="sc">-</span>get_fasta_of_long_isoforms.sh <span class="sc">/</span>path<span class="sc">-</span>to<span class="sc">-</span>your<span class="sc">/</span>fasta.masked your_longest.gtf</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>sbatch <span class="dv">2</span><span class="sc">-</span>get_fasta_of_long_isoforms.sh <span class="sc">/</span>path<span class="sc">-</span>to<span class="sc">-</span>your<span class="sc">/</span>fasta.masked your_longest.gtf</span></code></pre></div>
 <p>And, voilà! Two files will have appeared, named
 <code>longest_isoforms.aa</code> and
 <code>longest_isoforms.codingseq</code>. Happy analysing!</p>
@@ -2002,3 +2002,4 @@ $(document).ready(function ()  {
 
 </body>
 </html>
+
