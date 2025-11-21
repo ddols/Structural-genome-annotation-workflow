@@ -318,11 +318,24 @@ However, in some cases, we are only interested in working with the longest ones 
 analysis, determine sets of [orthologous genes](https://github.com/OrthoFinder/OrthoFinder), or [phylogenomics](https://github.com/smirarab/ASTRAL)
 to name a few examples. 
 
-To extract the longest isoforms, we will need at least the following:
+To extract the longest isoforms, we will need at least the following programs:
 
 - [TSEBRA](https://github.com/Gaius-Augustus/TSEBRA)
 - [Augustus](https://github.com/Gaius-Augustus/Augustus)
 - `biopython`
+
+### Step 5.1 - Installing the required programs
+
+We will start off by creating a new environment for these programs. To create it, just type:
+
+```r
+conda create -n tsebra
+```
+
+Then, we will [install TSEBRA](https://bioconda.github.io/recipes/tsebra/README.html) following the instructions, 
+and do the same for [Augustus](https://anaconda.org/bioconda/augustus) (you can also try following [this](https://github.com/Gaius-Augustus/Augustus?tab=readme-ov-file#building-augustus-from-source) indications), 
+and `biopython` (`pip3 install biopython`).
+
 
 
 
