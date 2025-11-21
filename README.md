@@ -305,10 +305,25 @@ errors. All result files will be in `/workflow_ann/results`.
 # Step 5 - Obtaining longest isoforms for downstream analyses
 
 Eventually, the workflow will happily end (fingers crossed), and then we will be
-able to perform either the functional annotation of the genome or focus on whatever downstream 
+able to move on with either the functional annotation of the genome or focus on whatever downstream 
 analyses we feel like. If you browse the `workflow_ann/results/2_braker/out_braker/braker`
 directory, you will find a compendium of `BRAKER`'s outputs (you can learn more about them 
 in [here](https://github.com/Gaius-Augustus/BRAKER), at the section **Output of BRAKER**).
+
+Essentially, both `braker.gtf` and `braker.gff3` are the final gene set of our genome assembly, 
+`braker.aa` is a multifasta containing all protein sequences (hence, amino-acid sequences) characterised thanks to
+our RNA-seq data, and `braker.condingseq`, which is a multifasta containing the nucleotide sequences of 
+the genome's gene set. These files contain all possible isoforms identified during the annotation.
+However, in some cases, we are only interested in working with the longest ones to perform [macrosynteny](https://github.com/jtlovell/GENESPACE)
+analysis, determine sets of [orthologous genes](https://github.com/OrthoFinder/OrthoFinder), or [phylogenomics](https://github.com/smirarab/ASTRAL)
+to name a few examples. 
+
+To extract the longest isoforms, we will need at least the following:
+
+- [TSEBRA](https://github.com/Gaius-Augustus/TSEBRA)
+- [Augustus](https://github.com/Gaius-Augustus/Augustus)
+- `biopython`
+
 
 
 
