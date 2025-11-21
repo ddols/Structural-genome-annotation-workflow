@@ -304,6 +304,12 @@ errors. All result files will be in `/workflow_ann/results`.
 
 # Step 5 - Obtaining longest isoforms for downstream analyses
 
+Eventually, the workflow will happily end (fingers crossed), and then we will be
+able to perform either the functional annotation of the genome or focus on whatever downstream 
+analyses we feel like. If you browse the `workflow_ann/results/2_braker/out_braker/braker`
+directory, you will find a compendium of `BRAKER`'s outputs (you can learn more about them 
+in [here](https://github.com/Gaius-Augustus/BRAKER), at the section **Output of BRAKER**).
+
 
 
 
