@@ -1,6 +1,6 @@
 [![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-blue?logo=github)](https://ddols.github.io/Structural-genome-annotation-workflow/)
 
-Structural genome annotation workflow
+Structural genome annotation workflow: A beginner's guide
 ================
 
 - [Before we get started](#before-we-get-started)
@@ -383,6 +383,7 @@ sbatch 2-get_fasta_of_long_isoforms.sh /path-to-your/fasta.masked your_longest.g
 ```
 
 And, voilà! Two files will have appeared, named `longest_isoforms.aa` and `longest_isoforms.codingseq`. Happy analysing!
+
 
 
 
